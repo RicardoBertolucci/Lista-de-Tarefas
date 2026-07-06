@@ -82,6 +82,7 @@ body {
   max-height: 580px;
   scrollbar-width: thin;
   scrollbar-color: #a89f7a transparent;
+  min-height: 67px;
 }
 
 .card__list::-webkit-scrollbar {
@@ -236,10 +237,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-  body {
-    height: unset;
-  }
-
   .header {
     padding-inline: 1rem;
   }
@@ -263,6 +260,14 @@ body {
 }
 
 @media (max-width: 530px) {
+  body {
+    height: unset;
+  }
+  
+  .header {
+    height: 60px;
+  }
+
   .tasks {
     grid-template-columns: auto;
     padding: 1rem;
@@ -283,6 +288,7 @@ body {
   .footer {
     gap: 0.1rem;
     padding: 0;
+    height: 60px;
   }
 
   .footer__copyright {
