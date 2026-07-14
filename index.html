@@ -1,109 +1,116 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <title>Lista de Tarefas</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://kit.fontawesome.com/c563b4c310.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!doctype html>
+  <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <title>Lista de Tarefas</title>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"
+      />
+      <link rel="stylesheet" href="style.css" />
+      <script
+        src="https://kit.fontawesome.com/c563b4c310.js"
+        crossorigin="anonymous"
+      ></script>
+    </head>
 
-  <body>
-    <header class="header">
-      <i
-        class="fa-solid fa-bars-staggered"
-        style="color: rgb(255, 255, 255)"
-      ></i>
-      <div class="header__content">
-        <h1 class="header__title">To-do list</h1>
-        <p class="header__paragraph">Planejamento • Metas • Conquistas</p>
+    <body>
+      <header class="header">
+        <i
+          class="fa-solid fa-bars-staggered"
+          style="color: rgb(255, 255, 255)"
+        ></i>
+        <div class="header__content">
+          <h1 class="header__title">To-do list</h1>
+          <p class="header__paragraph">Planejamento • Metas • Conquistas</p>
+        </div>
+      </header>
+
+      <main class="tasks">
+        <section class="card">
+          <div class="card__container">
+            <h2 class="card__title">Segunda-Feira</h2>
+            <button class="card__button" id="1">new task</button>
+          </div>
+          <span class="card__divider"></span>
+          <div class="card__list">
+            <!-- <div class="card__task">
+              <input class="card__input" type="checkbox"/>
+              <p class="card__text">Realizar 2 horas de projeto</p>
+              <div class="card__icons">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+            </div> -->
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__container">
+            <h2 class="card__title">Terça-Feira</h2>
+            <button class="card__button" id="2">new task</button>
+          </div>
+          <span class="card__divider"></span>
+          <div class="card__list"></div>
+        </section>
+
+        <section class="card">
+          <div class="card__container">
+            <h2 class="card__title">Quarta-Feira</h2>
+            <button class="card__button" id="3">new task</button>
+          </div>
+          <span class="card__divider"></span>
+          <div class="card__list"></div>
+        </section>
+
+        <section class="card">
+          <div class="card__container">
+            <h2 class="card__title">Quinta-Feira</h2>
+            <button class="card__button" id="4">new task</button>
+          </div>
+          <span class="card__divider"></span>
+          <div class="card__list"></div>
+        </section>
+
+        <section class="card">
+          <div class="card__container">
+            <h2 class="card__title">Sexta-Feira</h2>
+            <button class="card__button" id="5">new task</button>
+          </div>
+          <span class="card__divider"></span>
+          <div class="card__list"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&copy;</p>
+        <p class="footer__paragraph">
+          Desenvolvido por Ricardo Zampolo Bertolucci Cruz - 2026
+        </p>
+      </footer>
+
+      <!-- MODAL -->
+      <div class="modal__overlay">
+        <div class="modal__box">
+          <i class="fa-solid fa-x modal__close"></i>
+          <h2 class="modal__title">Adicionar tarefa</h2>
+          <div class="modal__form">
+            <input
+              type="text"
+              name="tarefa"
+              class="modal__input"
+              placeholder="Adicione uma tarefa"
+              title="Descreva uma tarefa"
+            />
+            <!-- <p class="show">Adicione um texto para criar a tarefa</p> -->
+            <button type="submit" class="modal__button">Adicionar</button>
+          </div>
+        </div>
       </div>
-    </header>
 
-    <main class="tasks">
-      <section class="card">
-        <div class="card__container">
-          <h2 class="card__title">Segunda-Feira</h2>
-          <button class="card__button">new task</button>
-        </div>
-        <span class="card__divider"></span>
-        <div class="card__list">
-          <!-- <div class="card__task">
-            <input class="card__input" type="checkbox" name="check" />
-            <p class="card__text">Realizar 2 horas de projeto</p>
-            <div class="card__icons">
-              <i class="fa-solid fa-pen-to-square"></i>
-              <i class="fa-solid fa-trash"></i>
-            </div>
-          </div> -->
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card__container">
-          <h2 class="card__title">Terça-Feira</h2>
-          <button class="card__button">new task</button>
-        </div>
-        <span class="card__divider"></span>
-        <div class="card__list"></div>
-      </section>
-
-      <section class="card">
-        <div class="card__container">
-          <h2 class="card__title">Quarta-Feira</h2>
-          <button class="card__button">new task</button>
-        </div>
-        <span class="card__divider"></span>
-        <div class="card__list"></div>
-      </section>
-
-      <section class="card">
-        <div class="card__container">
-          <h2 class="card__title">Quinta-Feira</h2>
-          <button class="card__button">new task</button>
-        </div>
-        <span class="card__divider"></span>
-        <div class="card__list"></div>
-      </section>
-
-      <section class="card">
-        <div class="card__container">
-          <h2 class="card__title">Sexta-Feira</h2>
-          <button class="card__button">new task</button>
-        </div>
-        <span class="card__divider"></span>
-        <div class="card__list"></div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p class="footer__copyright">&copy;</p>
-      <p class="footer__paragraph">
-        Desenvolvido por Ricardo Zampolo Bertolucci Cruz - 2026
-      </p>
-    </footer>
-
-    <!-- MODAL -->
-    <div class="modal__overlay">
-      <div class="modal__box">
-        <i class="fa-solid fa-x modal__close"></i>
-        <h2 class="modal__title">Adicionar tarefa</h2>
-        <div class="modal__form">
-          <input type="text" name="tarefa" class="modal__input" placeholder="Adicione uma tarefa" title="Descreva uma tarefa"/>
-          <button type="submit" class="modal__button">Adicionar</button>
-        </div>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
-  </body>
-</html>
+      <script src="script.js"></script>
+    </body>
+  </html>
