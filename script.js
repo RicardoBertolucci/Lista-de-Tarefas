@@ -1,17 +1,44 @@
-const modal = document.querySelector(".modal__overlay");
+const modalCreateTask = document.querySelector(".modal__overlay");
 const closeModal = document.querySelector(".modal__close");
-let currentCard = null;
 let display = document.querySelector(".modal__input");
+let modalTitle = document.querySelector(".modal__title");
+const btnAdd = document.querySelector(".add");
+// let cancel = document.querySelector(".cancel");
+// let confirm = document.querySelector(".confirm");
+const changeDiv = document.querySelector(".buttons__div");
+let paragraphCard = null;
+
+let currentCard = null;
+let currentIcon = null;
+let currentPhrase = null;
 
 // Abrir Modal
 function enableModal() {
-  modal.style.display = "block";
+  modalCreateTask.style.display = "block";
 }
 // Fechar Modal
 const disableModal = () => {
   display.value = "";
-  modal.style.display = "none";
+
+  if (btnAdd.style.display === "none") {
+    btnAdd.style.display = "block";
+    changeDiv.style.display = "none";
+  }
+
+  modalTitle.textContent = "Adicionar tarefa";
+  modalCreateTask.style.display = "none";
 };
+
+function enableModalEdit(text) {
+  btnAdd.style.display = "none";
+
+  changeDiv.style.display = "flex";
+
+  modalTitle.textContent = "Editar tarefa";
+  display.value = text;
+
+  modalCreateTask.style.display = "block";
+}
 
 // Creates a task card
 const createTask = (display) => {
@@ -42,6 +69,27 @@ const createTask = (display) => {
   return cardTask;
 };
 
+const findIcon = (value) => {
+  currentIcon = value;
+
+  //lixo
+  if (currentIcon.closest("svg").classList.contains("fa-trash")) {
+    // Delete
+    const removeCard = currentIcon.closest(".card__task");
+    removeCard.remove();
+  } else if (currentIcon.closest("svg").classList.contains("modal__close")) {
+    // Close
+    disableModal();
+  } else {
+    //EDIT
+    let paragraph = currentIcon.closest(".card__task");
+    let phrase = paragraph.querySelector(".card__text");
+    
+    paragraphCard = phrase;
+    enableModalEdit(phrase.textContent, phrase);
+  }
+};
+
 addEventListener("click", (e) => {
   let value = e.target;
 
@@ -51,24 +99,27 @@ addEventListener("click", (e) => {
   }
 
   if (value.tagName === "path" || value.tagName === "svg") {
-    disableModal();
+    findIcon(value);
   }
 
-  if (value.classList.contains("modal__button")) {
+  if (value.classList.contains("add")) {
     let input = display.value;
-    console.log(input === "");
 
     if (input === "" || input === null || input === undefined) {
       let attention = document.createElement("p");
       attention.textContent = "Adicione um texto para criar a tarefa";
       attention.classList.add("show");
-      display.after(attention);
+
+      const warningElement = document.querySelector(".show");
+
+      if (!warningElement) {
+        display.after(attention);
+      }
 
       setTimeout(() => {
         attention.classList.remove("show");
         attention.classList.add("hidden");
       }, 3000);
-
     } else {
       // Armazena o botão do "new task" clicado para encontrar o card pai mais próximo
       const cardElement = currentCard.closest(".card");
@@ -83,4 +134,20 @@ addEventListener("click", (e) => {
       disableModal();
     }
   }
+
+  if (value.classList.contains("cancel")) {
+    btnAdd.style.display = "block";
+    changeDiv.style.display = "none";
+    disableModal();
+  }
+
+  if (value.classList.contains("confirm")) {
+    let input = display.value;
+    paragraphCard.textContent = input;
+    
+      btnAdd.style.display = "block";
+      changeDiv.style.display = "none";
+      disableModal();
+  }
 });
+

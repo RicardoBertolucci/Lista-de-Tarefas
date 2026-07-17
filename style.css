@@ -191,7 +191,7 @@ body {
   font-size: 1.25rem;
 }
 
-/* ========== MODAL ========== */
+/* ========== MODAL CREATE TASK ========== */
 .modal__overlay {
   display: none;
   position: absolute;
@@ -270,6 +270,14 @@ body {
   font-size: .75rem;
   align-self: center;
 }
+
+/* ========== MODAL EDIT ========== */
+.buttons__div {
+  display: none;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1440px) {
