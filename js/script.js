@@ -1,44 +1,13 @@
 const modalCreateTask = document.querySelector(".modal__overlay");
 const closeModal = document.querySelector(".modal__close");
+const changeDiv = document.querySelector(".buttons__div");
+const btnAdd = document.querySelector(".add");
+
 let display = document.querySelector(".modal__input");
 let modalTitle = document.querySelector(".modal__title");
-const btnAdd = document.querySelector(".add");
-// let cancel = document.querySelector(".cancel");
-// let confirm = document.querySelector(".confirm");
-const changeDiv = document.querySelector(".buttons__div");
 let paragraphCard = null;
-
 let currentCard = null;
 let currentIcon = null;
-let currentPhrase = null;
-
-// Abrir Modal
-function enableModal() {
-  modalCreateTask.style.display = "block";
-}
-// Fechar Modal
-const disableModal = () => {
-  display.value = "";
-
-  if (btnAdd.style.display === "none") {
-    btnAdd.style.display = "block";
-    changeDiv.style.display = "none";
-  }
-
-  modalTitle.textContent = "Adicionar tarefa";
-  modalCreateTask.style.display = "none";
-};
-
-function enableModalEdit(text) {
-  btnAdd.style.display = "none";
-
-  changeDiv.style.display = "flex";
-
-  modalTitle.textContent = "Editar tarefa";
-  display.value = text;
-
-  modalCreateTask.style.display = "block";
-}
 
 // Creates a task card
 const createTask = (display) => {
@@ -69,6 +38,62 @@ const createTask = (display) => {
   return cardTask;
 };
 
+const loadFromLocalStorage = () => {
+  const dados = localStorage.getItem("tarefas");
+  // Teoricamente, aqui tenho um array como string
+
+  const parseObject = JSON.parse(dados);
+  // Aqui eu converto para array novamente
+
+  if (parseObject !== null) {
+    const sections = document.querySelectorAll(".card");
+
+    parseObject.forEach((obj) => {
+      sections.forEach((section) => {
+        const card = section.querySelector(".card__title");
+        const cardList = section.querySelector(".card__list");
+        if (card.textContent === obj.dia) {
+          obj.tarefas.forEach((tarefa) => {
+            let result = createTask(tarefa);
+            cardList.append(result);
+          });
+        }
+      });
+    });
+  }
+};
+
+// Chamando para carregar os dados
+loadFromLocalStorage();
+
+// Abrir Modal
+function enableModal() {
+  modalCreateTask.style.display = "block";
+}
+// Fechar Modal
+const disableModal = () => {
+  display.value = "";
+
+  if (btnAdd.style.display === "none") {
+    btnAdd.style.display = "block";
+    changeDiv.style.display = "none";
+  }
+
+  modalTitle.textContent = "Adicionar tarefa";
+  modalCreateTask.style.display = "none";
+};
+
+function enableModalEdit(text) {
+  btnAdd.style.display = "none";
+
+  changeDiv.style.display = "flex";
+
+  modalTitle.textContent = "Editar tarefa";
+  display.value = text;
+
+  modalCreateTask.style.display = "block";
+}
+
 const findIcon = (value) => {
   currentIcon = value;
 
@@ -77,6 +102,7 @@ const findIcon = (value) => {
     // Delete
     const removeCard = currentIcon.closest(".card__task");
     removeCard.remove();
+    saveToLocalStorage();
   } else if (currentIcon.closest("svg").classList.contains("modal__close")) {
     // Close
     disableModal();
@@ -84,7 +110,7 @@ const findIcon = (value) => {
     //EDIT
     let paragraph = currentIcon.closest(".card__task");
     let phrase = paragraph.querySelector(".card__text");
-    
+
     paragraphCard = phrase;
     enableModalEdit(phrase.textContent, phrase);
   }
@@ -131,6 +157,8 @@ addEventListener("click", (e) => {
 
       closestChild.append(resultCard);
 
+      saveToLocalStorage();
+
       disableModal();
     }
   }
@@ -144,10 +172,32 @@ addEventListener("click", (e) => {
   if (value.classList.contains("confirm")) {
     let input = display.value;
     paragraphCard.textContent = input;
-    
-      btnAdd.style.display = "block";
-      changeDiv.style.display = "none";
-      disableModal();
+
+    btnAdd.style.display = "block";
+    changeDiv.style.display = "none";
+
+    saveToLocalStorage();
+
+    disableModal();
   }
 });
 
+const saveToLocalStorage = () => {
+  const cards = document.querySelectorAll(".card");
+  const dados = [];
+
+  cards.forEach((card) => {
+    const titleCard = card.querySelector(".card__title");
+    let taskCard = card.querySelectorAll(".card__text");
+
+    const obj = { dia: titleCard.textContent, tarefas: [] };
+    dados.push(obj);
+
+    taskCard.forEach((tarefa) => {
+      let textCard = tarefa.textContent;
+      obj.tarefas.push(textCard);
+    });
+  });
+
+  localStorage.setItem("tarefas", JSON.stringify(dados));
+};
